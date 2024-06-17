@@ -13,3 +13,5 @@ elif TxT == 0:
     print("This number is both positive and negative.")
 else:
     print("This number is negative.")
+
+print(inVal1,"x",inVal2,"=",TxT)
