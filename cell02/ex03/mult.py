@@ -6,6 +6,7 @@ print("Enter the second number:")
 inVal2 = int(input()) 
 
 TxT = inVal1 * inVal2
+print(inVal1,"x",inVal2,"=",TxT)
 
 if TxT > 0:
     print("This number is positive.")
@@ -14,4 +15,3 @@ elif TxT == 0:
 else:
     print("This number is negative.")
 
-print(inVal1,"x",inVal2,"=",TxT)
