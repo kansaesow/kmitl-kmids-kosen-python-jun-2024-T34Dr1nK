@@ -1,6 +1,7 @@
 def test():
     print("Using Checkmate Module,,,,,")
     print("Hello there!")
+    print("adsasdasds")
 
 class chessGame:
 
