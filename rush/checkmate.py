@@ -19,7 +19,7 @@ class chessGame:
         self.board = board
         self.__Boardsta()
 
-        if self.__ValidateBoard():
+        if self.ValidateBoard():
             print("Valid Board Continue The Game...")
         else:
             print("Invalid Board Size It need to be Same Dimention in X,Y")
@@ -131,7 +131,7 @@ class chessGame:
         
         self.Barr.append(tmp_arr)
     
-    def __ValidateBoard(self):
+    def ValidateBoard(self):
         
         for i in range(len(self.Barr)):
 
@@ -165,7 +165,7 @@ class Pawn(chessPiece):
 
     def move(self):
         moveSet = []
-        if self.color == Black:
+        if self.color == "Black":
             forward = 1
         else:
             forward = -1

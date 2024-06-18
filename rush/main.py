@@ -14,9 +14,11 @@ P...\
 
     if len(sys.argv) > 1:
 
-        input_file = open(sys.argv[1],'r')
-        content = input_file.read()
-        board = content
+        for i in len(sys.argv):
+
+            input_file = open(sys.argv[i],'r')
+            content = input_file.read()
+            board = content
 
     chessGame = checkmate.chessGame(board)
     #chessGame.printboard()
