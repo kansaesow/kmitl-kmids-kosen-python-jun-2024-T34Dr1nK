@@ -69,6 +69,22 @@ class chessGame:
                     print("This is Queen movable set :")
                     for i in queen1.move():
                         print(i)
+                
+                elif bVal == 'P':
+
+                    print(" at x,y: ",xCord,yCord)
+                    pawn1 = Pawn(xCord,yCord,self.boardSize,self.Barr)
+                    print("This is Pawn movable set :")
+                    for i in pawn1.move():
+                        print(i)
+
+                elif bVal == 'K':
+
+                    print(" at x,y: ",xCord,yCord)
+                    knight1 = Knight(xCord,yCord,self.boardSize,self.Barr)
+                    print("This is Knight movable set :")
+                    for i in knight1.move():
+                        print(i)
 
                 elif bVal != '.':
                     print(bVal,"x,y:",xCord,yCord)
@@ -176,7 +192,7 @@ class Rook(chessPiece):
 
         return moveSet
     
-class Horse(chessPiece):
+class Knight(chessPiece):
 
     def move(self):
         return super().move()
