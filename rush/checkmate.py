@@ -35,59 +35,86 @@ class chessGame:
                 print(j,end='')
             print()
 
-    def Kcheck(self):
+    def ReadPiece(self):
+
+        self.rook = []
+        self.bishop = []
+        self.queen = []
+        self.pawn = []
+        self.knight = []
         
         for yCord,yList in enumerate(self.Barr):
 
             for xCord,bVal in enumerate(yList):
 
                 if bVal == 'K':
-                    print("King at x,y: ",xCord,yCord)
+                    pass
 
                 elif bVal == 'R':
 
-                    print("Rook at x,y: ",xCord,yCord)
-                    rook1 = Rook(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Rook movable set :")
-                    # for i in rook1.move():
-                    #     print(i)
+                    rooktmp = Rook(xCord,yCord,self.boardSize,self.Barr,"white")
+                    self.rook.append(rooktmp)
 
-                    print(rook1.move())
-                        
                 elif bVal == 'B':
 
-                    print("Bishop at x,y: ",xCord,yCord)
-                    bishop1 = Bishop(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Bishop movable set :")
-                    for i in bishop1.move():
-                        print(i)
+                    bishoptmp = Bishop(xCord,yCord,self.boardSize,self.Barr,"white")
+                    self.bishop.append(bishoptmp)
                 
                 elif bVal == 'Q':
 
-                    print("Queen at x,y: ",xCord,yCord)
-                    queen1 = Queen(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Queen movable set :")
-                    for i in queen1.move():
-                        print(i)
+                    queentmp = Queen(xCord,yCord,self.boardSize,self.Barr,"white")
+                    self.ueen.append(queentmp)
                 
                 elif bVal == 'P':
+                    pass
 
-                    print(" at x,y: ",xCord,yCord)
-                    pawn1 = Pawn(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Pawn movable set :")
-                    for i in pawn1.move():
-                        print(i)
+                    pawntmp = Pawn(xCord,yCord,self.boardSize,self.Barr,"white")
+                    self.pawn.append(pawntmp)
 
-                elif bVal == 'K':
+                elif bVal == 'N':
 
-                    print(" at x,y: ",xCord,yCord)
-                    knight1 = Knight(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Knight movable set :")
-                    for i in knight1.move():
-                        print(i)
+                    knighttmp = Knight(xCord,yCord,self.boardSize,self.Barr,"white")
+                    self.knight.append(knighttmp)
 
-                elif bVal != '.':
-                    print(bVal,"x,y:",xCord,yCord)
+                elif bVal == '.':
+                    pass
+
+                else:
+                    print("There are invalid symble on the board")
+                    exit()
+        
+    def kingCheck(self):
+        
+        for i in self.rook:
+
+            if "K" in i.move():
+                print("Success")
+                exit()
+            
+        for i in self.bishop:
+
+            if "K" in i.move():
+                print("Success")
+                exit()
+
+        for i in self.queen:
+
+            if "K" in i.move():
+                print("Success")
+                exit()
+        
+        # for i in self.pawn:
+
+        #     if "K" in i.move():
+        #         print("Success")
+        #         exit()
+
+        for i in self.knight:
+
+            if "K" in i.move():
+                print("Success")
+                exit()
+            
 
     def __Boardsta(self):
 
@@ -116,16 +143,20 @@ class chessGame:
 
 class chessPiece:
     
-    def __init__(self,xCord,yCord,bSize,barr):
+    def __init__(self,xCord,yCord,bSize,barr,color):
 
         self.xCord = xCord
         self.yCord = yCord
         self.boardSize = bSize
         self.boardArray = barr
+        self.color = color
     
     #add ability to check other pawn on the board info
     def cordSeek(self,xCord,yCord):
         return self.boardArray[yCord][xCord]
+    
+    def PieceInfo(self):
+        print("Current Piece Cordinate:",self.xCord,self.yCord)
 
     def move(self):
         pass
