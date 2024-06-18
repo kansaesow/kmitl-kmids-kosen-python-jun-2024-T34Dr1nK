@@ -7,10 +7,10 @@ def main():
     checkmate.test()
 
     board = """\
-RK..
+.K..
 ....
-..P.
-....\
+.R..
+P...\
 """
 
     chessGame = checkmate.chessGame(board)

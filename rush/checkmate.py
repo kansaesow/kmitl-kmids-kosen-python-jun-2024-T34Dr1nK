@@ -1,7 +1,6 @@
 def test():
     print("Using Checkmate Module,,,,,")
     print("Hello there!")
-    print("adsasdasds")
 
 class chessGame:
 
@@ -50,8 +49,10 @@ class chessGame:
                     print("Rook at x,y: ",xCord,yCord)
                     rook1 = Rook(xCord,yCord,self.boardSize,self.Barr)
                     print("This is Rook movable set :")
-                    for i in rook1.move():
-                        print(i)
+                    # for i in rook1.move():
+                    #     print(i)
+
+                    print(rook1.move())
                         
 
                 elif bVal != '.':
@@ -91,6 +92,7 @@ class chessPiece:
         self.boardSize = bSize
         self.boardArray = barr
     
+    #add ability to check other pawn on the board info
     def cordSeek(self,xCord,yCord):
         return self.boardArray[yCord][xCord]
 
@@ -123,55 +125,85 @@ class Rook(chessPiece):
 
             #check the moveable for rook at the right size
             if i == 0:
+
                 tmpX = self.xCord+1
+
                 while tmpX < self.boardSize:
 
                     if self.cordSeek(tmpX,self.yCord) == '.':
+
                         moveSet.append([tmpX,self.yCord])
                         tmpX += 1
-                    elif self.cordSeek(tmpX,self.yCord) == '.':
-                        pass
-                        
-                    else:
+
+                    elif self.cordSeek(tmpX,self.yCord) == 'K':
                         moveSet.append(self.cordSeek(tmpX,self.yCord))
+                        tmpX = 9
+
+                    else:
                         tmpX = 9
 
             #We move to the bottom of rook
             elif i == 1:
+
                 tmpY = self.yCord+1
+
                 while tmpY < self.boardSize:
 
-                    if self.cordSeek(self.xCord,tmpY) != '.':
-                        moveSet.append(self.cordSeek(self.xCord,tmpY))
-                        tmpY = 9
-                    else:
+                    if self.cordSeek(self.xCord,tmpY) == '.':
+
                         moveSet.append([self.xCord,tmpY])
                         tmpY += 1
 
+                    elif self.cordSeek(self.xCord,tmpY) == 'K':
+
+                        moveSet.append([self.xCord,tmpY])
+                        tmpY = 9
+
+                    else:
+
+                        tmpY = 9
+
             #check the moveable for rook at the left size
             elif i == 2:
+
                 tmpX = self.xCord-1
-                while tmpX > 0:
 
-                    if self.cordSeek(tmpX,self.yCord) != '.':
-                        moveSet.append(self.cordSeek(tmpX,self.yCord))
-                        tmpX = -1
-                    else:
+                while tmpX >= 0:
+                    
+                    if self.cordSeek(tmpX,self.yCord) == '.':
+
                         moveSet.append([tmpX,self.yCord])
-                        tmpX -= 1
+                        tmpX = tmpX - 1
 
-            #We move to the bottom of rook
-            elif i == 3:
-                tmpY = self.yCord-1
-                while tmpY > 0:
+                    elif self.cordSeek(tmpX,self.yCord) == 'K':
 
-                    if self.cordSeek(self.xCord,tmpY) != '.':
-                        moveSet.append(self.cordSeek(self.xCord,tmpY))
-                        tmpY = -1
+                        moveSet.append(self.cordSeek(tmpX,self.yCord))
+                        tmpX = -10
+
                     else:
-                        moveSet.append([self.xCord,tmpY])
-                        tmpY -= 1
 
+                        tmpX = -10
+
+
+            #We move to the Upper of rook
+            elif i == 3:
+
+                tmpY = self.yCord-1
+                while tmpY >= 0:
+
+                    if self.cordSeek(self.xCord,tmpY) == '.':
+
+                        moveSet.append([self.xCord,tmpY])
+                        tmpY = tmpY - 1
+
+                    elif self.cordSeek(self.xCord,tmpY) == 'K':
+
+                        moveSet.append(self.cordSeek(self.xCord,tmpY))
+                        tmpY = -10
+
+                    else:
+
+                        tmpY = -10
 
         return moveSet
     
