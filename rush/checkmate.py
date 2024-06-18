@@ -53,6 +53,13 @@ class chessGame:
                     for i in rook1.move():
                         print(i)
                         
+                elif bVal == 'B':
+
+                    print("Bishop at x,y: ",xCord,yCord)
+                    bishop1 = Bishop(xCord,yCord,self.boardSize,self.Barr)
+                    print("This is Rook movable set :")
+                    for i in Bishop.move():
+                        print(i)
 
                 elif bVal != '.':
                     print(bVal,"x,y:",xCord,yCord)
@@ -109,8 +116,22 @@ class Bishop(chessPiece):
 
     def move(self):
 
+        moveSet = []
+        rotate = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
-
+        for i in range(4):
+            while True:
+                tmpX = self.xCord + rotate[range][0]
+                tmpY = self.yCord + rotate[range][1]
+                #check if the next candidate is in side the board
+                if tmpX > self.boardSize or tmpY > self.boardSize or tmpX < 0 or tmpY < 0:
+                    break
+                if self.cordSeek(tmpX,tmpY) == '.':
+                    moveSet.append([tmpX,tmpY])
+                elif self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
+                    moveSet.append([tmpX,tmpY])
+                else:
+                    break
         return super().move()
 
 class Rook(chessPiece):
