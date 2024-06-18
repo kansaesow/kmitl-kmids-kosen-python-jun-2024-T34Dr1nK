@@ -164,10 +164,35 @@ class chessPiece:
 class Pawn(chessPiece):
 
     def move(self):
-
         moveSet = []
-
-        return super().move()
+        if self.color == Black:
+            forward = 1
+        else:
+            forward = -1
+        defaultMoveSet = [[-1,forward],[1,forward]]
+        #Move for taking
+        for i in range(3):
+            tmpX = self.xCord + defaultMoveSet[i][0]
+            tmpY = self.yCord + defaultMoveSet[i][1]
+            
+            #check if the next candidate is in side the board
+            if tmpX < self.boardSize or tmpY < self.boardSize or tmpX >= 0 or tmpY >= 0:
+                if self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
+                    moveSet.append(self.cordSeek(tmpX,tmpY))
+                elif self.cordSeek(tmpX,tmpY) != '.': #With Opponent's color
+                    moveSet.append([tmpX,tmpY])
+        #Normal move and first move
+        startRow = self.boardSize/2 + forward*(2 - self.boardSize/2) - 1
+        tmpX = self.xCord
+        tmpY = self.yCord + forward
+        if tmpX < self.boardSize or tmpY < self.boardSize or tmpX >= 0 or tmpY >= 0:
+            if self.cordSeek(tmpX,tmpY) == '.':
+                moveSet.append([tmpX,tmpY])
+            tmpY = tmpY + forward
+            #If in the start position and if noone in the way
+            if self.yCord == startRow and self.cordSeek(tmpX,tmpY) == '.':
+                moveSet.append([tmpX,tmpY])
+        return moveSet
 
 class Bishop(chessPiece):
 
@@ -199,7 +224,7 @@ class Bishop(chessPiece):
 class Rook(chessPiece):
 
     def move(self):
-
+        
         moveSet = []
         rotate = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
@@ -226,7 +251,21 @@ class Rook(chessPiece):
 class Knight(chessPiece):
 
     def move(self):
-        return super().move()
+        moveSet = []
+        defaultMoveSet = [[2,1],[-2,1],[2,-1],[-2,-1],[1,2],[1,-2],[-1,2],[-1,-2]]
+        for i in range(8):
+            tmpX = self.xCord + defaultMoveSet[i][0]
+            tmpY = self.yCord + defaultMoveSet[i][1]
+            
+            #check if the next candidate is in side the board
+            if tmpX < self.boardSize or tmpY < self.boardSize or tmpX >= 0 or tmpY >= 0:
+                if self.cordSeek(tmpX,tmpY) == '.':
+                    moveSet.append([tmpX,tmpY])
+                elif self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
+                    moveSet.append(self.cordSeek(tmpX,tmpY))
+                else:
+                    break
+        return moveSet
     
 class Queen(chessPiece):
 
