@@ -7,9 +7,9 @@ def main():
     checkmate.test()
 
     board = """\
-.K..
+...K
+...R
 ....
-.R..
 P...\
 """
 

@@ -58,8 +58,16 @@ class chessGame:
 
                     print("Bishop at x,y: ",xCord,yCord)
                     bishop1 = Bishop(xCord,yCord,self.boardSize,self.Barr)
-                    print("This is Rook movable set :")
-                    for i in Bishop.move():
+                    print("This is Bishop movable set :")
+                    for i in bishop1.move():
+                        print(i)
+                
+                elif bVal == 'Q':
+
+                    print("Queen at x,y: ",xCord,yCord)
+                    queen1 = Queen(xCord,yCord,self.boardSize,self.Barr)
+                    print("This is Queen movable set :")
+                    for i in queen1.move():
                         print(i)
 
                 elif bVal != '.':
@@ -109,9 +117,9 @@ class chessPiece:
 class Pawn(chessPiece):
 
     def move(self):
-        return super().move()
-    
-    def Eatmove(self):
+
+        moveSet = []
+
         return super().move()
 
 class Bishop(chessPiece):
@@ -122,109 +130,49 @@ class Bishop(chessPiece):
         rotate = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
         for i in range(4):
+            tmpX = self.xCord + rotate[i][0]
+            tmpY = self.yCord + rotate[i][1]
             while True:
-                tmpX = self.xCord + rotate[range][0]
-                tmpY = self.yCord + rotate[range][1]
+
                 #check if the next candidate is in side the board
-                if tmpX > self.boardSize or tmpY > self.boardSize or tmpX < 0 or tmpY < 0:
+                if tmpX >= self.boardSize or tmpY >= self.boardSize or tmpX < 0 or tmpY < 0:
                     break
                 if self.cordSeek(tmpX,tmpY) == '.':
                     moveSet.append([tmpX,tmpY])
                 elif self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
-                    moveSet.append([tmpX,tmpY])
+                    moveSet.append(self.cordSeek(tmpX,tmpY))
                 else:
                     break
-        return super().move()
+
+                tmpX = tmpX + rotate[i][0]
+                tmpY = tmpY + rotate[i][1]
+
+        return moveSet
 
 class Rook(chessPiece):
 
     def move(self):
 
         moveSet = []
+        rotate = [[1, 0], [0, 1], [-1, 0], [0, -1]]
 
         for i in range(4):
+            tmpX = self.xCord + rotate[i][0]
+            tmpY = self.yCord + rotate[i][1]
+            while True:
 
-            #check the moveable for rook at the right size
-            if i == 0:
+                #check if the next candidate is in side the board
+                if tmpX >= self.boardSize or tmpY >= self.boardSize or tmpX < 0 or tmpY < 0:
+                    break
+                if self.cordSeek(tmpX,tmpY) == '.':
+                    moveSet.append([tmpX,tmpY])
+                elif self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
+                    moveSet.append(self.cordSeek(tmpX,tmpY))
+                else:
+                    break
 
-                tmpX = self.xCord+1
-
-                while tmpX < self.boardSize:
-
-                    if self.cordSeek(tmpX,self.yCord) == '.':
-
-                        moveSet.append([tmpX,self.yCord])
-                        tmpX += 1
-
-                    elif self.cordSeek(tmpX,self.yCord) == 'K':
-                        moveSet.append(self.cordSeek(tmpX,self.yCord))
-                        tmpX = 9
-
-                    else:
-                        tmpX = 9
-
-            #We move to the bottom of rook
-            elif i == 1:
-
-                tmpY = self.yCord+1
-
-                while tmpY < self.boardSize:
-
-                    if self.cordSeek(self.xCord,tmpY) == '.':
-
-                        moveSet.append([self.xCord,tmpY])
-                        tmpY += 1
-
-                    elif self.cordSeek(self.xCord,tmpY) == 'K':
-
-                        moveSet.append([self.xCord,tmpY])
-                        tmpY = 9
-
-                    else:
-
-                        tmpY = 9
-
-            #check the moveable for rook at the left size
-            elif i == 2:
-
-                tmpX = self.xCord-1
-
-                while tmpX >= 0:
-                    
-                    if self.cordSeek(tmpX,self.yCord) == '.':
-
-                        moveSet.append([tmpX,self.yCord])
-                        tmpX = tmpX - 1
-
-                    elif self.cordSeek(tmpX,self.yCord) == 'K':
-
-                        moveSet.append(self.cordSeek(tmpX,self.yCord))
-                        tmpX = -10
-
-                    else:
-
-                        tmpX = -10
-
-
-            #We move to the Upper of rook
-            elif i == 3:
-
-                tmpY = self.yCord-1
-                while tmpY >= 0:
-
-                    if self.cordSeek(self.xCord,tmpY) == '.':
-
-                        moveSet.append([self.xCord,tmpY])
-                        tmpY = tmpY - 1
-
-                    elif self.cordSeek(self.xCord,tmpY) == 'K':
-
-                        moveSet.append(self.cordSeek(self.xCord,tmpY))
-                        tmpY = -10
-
-                    else:
-
-                        tmpY = -10
+                tmpX = tmpX + rotate[i][0]
+                tmpY = tmpY + rotate[i][1]
 
         return moveSet
     
@@ -236,4 +184,26 @@ class Horse(chessPiece):
 class Queen(chessPiece):
 
     def move(self):
-        return super().move()
+
+        moveSet = []
+        rotate = [[1, 1], [1, -1], [-1, 1], [-1, -1], [1, 0], [0, 1], [-1, 0], [0, -1]]
+
+        for i in range(8):
+            tmpX = self.xCord + rotate[i][0]
+            tmpY = self.yCord + rotate[i][1]
+            while True:
+
+                #check if the next candidate is in side the board
+                if tmpX >= self.boardSize or tmpY >= self.boardSize or tmpX < 0 or tmpY < 0:
+                    break
+                if self.cordSeek(tmpX,tmpY) == '.':
+                    moveSet.append([tmpX,tmpY])
+                elif self.cordSeek(tmpX,tmpY) == 'K': #Opponent's King
+                    moveSet.append(self.cordSeek(tmpX,tmpY))
+                else:
+                    break
+
+                tmpX = tmpX + rotate[i][0]
+                tmpY = tmpY + rotate[i][1]
+
+        return moveSet
