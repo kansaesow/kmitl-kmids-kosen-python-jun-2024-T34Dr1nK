@@ -125,16 +125,13 @@ class Rook(chessPiece):
                 while tmpX < self.boardSize:
 
                     if self.cordSeek(tmpX,self.yCord) == '.':
-
                         moveSet.append([tmpX,self.yCord])
                         tmpX += 1
-
-                    elif self.cordSeek(tmpX,self.yCord) == 'K':
-
-                        moveSet.append(self.cordSeek(tmpX,self.yCord))
-                        tmpX = 9
+                    elif self.cordSeek(tmpX,self.yCord) == '.':
+                        pass
                         
                     else:
+                        moveSet.append(self.cordSeek(tmpX,self.yCord))
                         tmpX = 9
 
             #We move to the bottom of rook
@@ -142,54 +139,36 @@ class Rook(chessPiece):
                 tmpY = self.yCord+1
                 while tmpY < self.boardSize:
 
-                    if self.cordSeek(self.xCord,tmpY) == '.':
-
-                        moveSet.append([self.xCord,tmpY])
-                        tmpX += 1
-
-                    elif self.cordSeek(self.xCord,tmpY) == 'K':
-
+                    if self.cordSeek(self.xCord,tmpY) != '.':
                         moveSet.append(self.cordSeek(self.xCord,tmpY))
                         tmpY = 9
-                        
                     else:
-                        tmpY = 9
+                        moveSet.append([self.xCord,tmpY])
+                        tmpY += 1
 
             #check the moveable for rook at the left size
             elif i == 2:
                 tmpX = self.xCord-1
                 while tmpX > 0:
 
-                    if self.cordSeek(tmpX,self.yCord) == '.':
-
+                    if self.cordSeek(tmpX,self.yCord) != '.':
+                        moveSet.append(self.cordSeek(tmpX,self.yCord))
+                        tmpX = -1
+                    else:
                         moveSet.append([tmpX,self.yCord])
                         tmpX -= 1
 
-                    elif self.cordSeek(tmpX,self.yCord) == 'K':
-
-                        moveSet.append(self.cordSeek(tmpX,self.yCord))
-                        tmpX = -1
-                        
-                    else:
-                        tmpX = 1
-
-            #We move to the upper of rook
+            #We move to the bottom of rook
             elif i == 3:
                 tmpY = self.yCord-1
                 while tmpY > 0:
 
-                    if self.cordSeek(self.xCord,tmpY) == '.':
-
-                        moveSet.append([self.xCord,tmpY])
-                        tmpX -= 1
-
-                    elif self.cordSeek(self.xCord,tmpY) == 'K':
-
+                    if self.cordSeek(self.xCord,tmpY) != '.':
                         moveSet.append(self.cordSeek(self.xCord,tmpY))
                         tmpY = -1
-                        
                     else:
-                        tmpY = -1
+                        moveSet.append([self.xCord,tmpY])
+                        tmpY -= 1
 
 
         return moveSet
